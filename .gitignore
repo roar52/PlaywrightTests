@@ -1,0 +1,42 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+packages/
+nuget.config
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Playwright
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE and AI tools
+.claude/
+.idea/
+.vscode/
+
+# Logs
+*.log
