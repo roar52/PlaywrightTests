@@ -13,6 +13,7 @@ public class BasePage
     private ILocator LogoutLink => Page.Locator("a[href='/logout']");
     private ILocator DeleteAccountLink => Page.Locator("a[href='/delete_account']");
     private ILocator ContactUsLink => Page.Locator("a[href='/contact_us']");
+    private ILocator TestCasesLink => Page.Locator("a[href='/test_cases']").First;
     private ILocator LoggedInLabel => Page.Locator("li:has-text('Logged in as')");
     /// <summary>
     /// Инициализировать базовую страницу
@@ -76,6 +77,9 @@ public class BasePage
 
     /// <summary>Кликает по ссылке «Contact us» в шапке сайта.</summary>
     public Task ClickContactUsAsync() => ContactUsLink.ClickAsync();
+
+    /// <summary>Кликает по ссылке «Test Cases» в шапке сайта.</summary>
+    public Task ClickTestCasesAsync() => TestCasesLink.ClickAsync();
 
     /// <summary>
     /// Проверяет, что в шапке отображается надпись «Logged in as ...» — индикатор активной сессии.

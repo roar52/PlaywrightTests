@@ -29,7 +29,8 @@ public class PlaywrightDriver : IAsyncDisposable
         var launchOptions = new BrowserTypeLaunchOptions
         {
             Headless = settings.Headless,
-            SlowMo = settings.SlowMo
+            SlowMo = settings.SlowMo,
+            Args = new[] { "--start-maximized" }
         };
 
         IBrowser browser = settings.Browser.ToLower() switch
@@ -51,7 +52,8 @@ public class PlaywrightDriver : IAsyncDisposable
 
         var context = await _browser.NewContextAsync(new BrowserNewContextOptions
         {
-            BaseURL = settings.BaseUrl
+            BaseURL = settings.BaseUrl,
+            ViewportSize = ViewportSize.NoViewport
         });
 
         context.SetDefaultTimeout(settings.DefaultTimeout);

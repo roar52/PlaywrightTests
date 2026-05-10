@@ -19,12 +19,12 @@ public class RegisterWithExistingEmailTests : BaseTest
     public async Task Register_WithExistingEmail_ErrorIsShown()
     {
         await HomePage.OpenAsync();
-        Assert.That(await HomePage.IsSliderVisibleAsync(), Is.True);
+        Assert.That(await HomePage.IsSliderVisibleAsync(), Is.True, "Слайдер на главной странице не отобразился, а должен был");
 
         await HomePage.ClickSignupLoginAsync();
-        Assert.That(await LoginPage.IsNewUserSignupVisibleAsync(), Is.True);
+        Assert.That(await LoginPage.IsNewUserSignupVisibleAsync(), Is.True, "Форма 'New User Signup!' не отобразилась, а должна была");
 
         await LoginPage.SignupAsync(User.Name, User.Email);
-        Assert.That(await LoginPage.IsEmailAlreadyExistsErrorVisibleAsync(), Is.True);
+        Assert.That(await LoginPage.IsEmailAlreadyExistsErrorVisibleAsync(), Is.True, "Ошибка 'Email Address already exist!' не отобразилась, а должна была");
     }
 }
