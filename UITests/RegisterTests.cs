@@ -4,18 +4,23 @@ namespace UITests;
 
 public class RegisterTests : BaseTest
 {
+    protected override async Task OnTearDownAsync()
+    {
+        await AuthHelper.DeleteAccountAsync();
+    }
+
     [Test]
     [Description("1 - Регистрация пользователя")]
     public async Task Register_NewUserShouldBeRegistered()
     {
         await HomePage.OpenAsync();
-        Assert.That(await HomePage.IsSliderVisibleAsync(), Is.True);
+        Assert.That(await HomePage.IsSliderVisibleAsync(), Is.True, "Слайдер на главной странице не отобразился, а должен был");
 
         await HomePage.ClickSignupLoginAsync();
-        Assert.That(await LoginPage.IsNewUserSignupVisibleAsync(), Is.True);
+        Assert.That(await LoginPage.IsNewUserSignupVisibleAsync(), Is.True, "Форма 'New User Signup!' не отобразилась, а должна была");
 
         await LoginPage.SignupAsync(User.Name, User.Email);
-        Assert.That(await SignUpPage.IsEnterAccountInfoVisibleAsync(), Is.True);
+        Assert.That(await SignUpPage.IsEnterAccountInfoVisibleAsync(), Is.True, "Форма 'Enter Account Information' не отобразилась, а должна была");
 
         await SignUpPage.SelectTitleAsync(User.Title);
         await SignUpPage.FillPasswordAsync(User.Password);
@@ -38,13 +43,9 @@ public class RegisterTests : BaseTest
         );
 
         await SignUpPage.ClickCreateAccountAsync();
-        Assert.That(await SignUpPage.IsAccountCreatedVisibleAsync(), Is.True);
+        Assert.That(await SignUpPage.IsAccountCreatedVisibleAsync(), Is.True, "Сообщение 'Account Created!' не отобразилось, а должно было");
 
         await SignUpPage.ClickContinueAsync();
-        Assert.That(await HomePage.IsLoggedInAsync(), Is.True);
-
-        await HomePage.ClickDeleteAccountAsync();
-        Assert.That(await AccountPage.IsAccountDeletedVisibleAsync(), Is.True);
-        await AccountPage.ClickContinueAsync();
+        Assert.That(await HomePage.IsLoggedInAsync(), Is.True, "Индикатор 'Logged in as' не отобразился — пользователь не авторизован после регистрации");
     }
 }

@@ -17,6 +17,10 @@ public abstract class BaseTest
     protected LoginPage LoginPage { get; private set; } = null!;
     protected SignUpPage SignUpPage { get; private set; } = null!;
     protected AccountPage AccountPage { get; private set; } = null!;
+    protected ContactUsPage ContactUsPage { get; private set; } = null!;
+    protected TestCasesPage TestCasesPage { get; private set; } = null!;
+    protected ProductsPage ProductsPage { get; private set; } = null!;
+    protected ProductDetailsPage ProductDetailsPage { get; private set; } = null!;
     protected AuthHelper AuthHelper { get; private set; } = null!;
     protected UserData User { get; private set; } = null!;
 
@@ -35,6 +39,10 @@ public abstract class BaseTest
         LoginPage = new LoginPage(Page);
         SignUpPage = new SignUpPage(Page);
         AccountPage = new AccountPage(Page);
+        ContactUsPage = new ContactUsPage(Page);
+        TestCasesPage = new TestCasesPage(Page);
+        ProductsPage = new ProductsPage(Page);
+        ProductDetailsPage = new ProductDetailsPage(Page);
         User = new UserBuilder().Build();
         AuthHelper = new AuthHelper(HomePage, LoginPage, SignUpPage, AccountPage, User);
 
