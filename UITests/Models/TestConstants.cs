@@ -22,4 +22,12 @@ public static class TestConstants
         public const string Mobile = "+1234567890";
     }
 
+    public static class Payment
+    {
+        public const string NameOnCard = "Test User";
+        public const string CardNumber = "4111111111111111";
+        public const string Cvc = "123";
+        public const string ExpiryMonth = "12";
+        public const string ExpiryYear = "2030";
+    }
 }

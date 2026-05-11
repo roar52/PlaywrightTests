@@ -11,6 +11,8 @@ public class ProductDetailsPage : BasePage
     private ILocator Availability => ProductInformation.Locator("p:has-text('Availability')");
     private ILocator Condition => ProductInformation.Locator("p:has-text('Condition')");
     private ILocator Brand => ProductInformation.Locator("p:has-text('Brand')");
+    private ILocator QuantityInput => Page.Locator("#quantity");
+    private ILocator AddToCartButton => Page.Locator("button.cart");
 
     public ProductDetailsPage(IPage page) : base(page) { }
 
@@ -43,4 +45,15 @@ public class ProductDetailsPage : BasePage
     /// Получить состояние отображения поля Brand
     /// </summary>
     public Task<bool> IsBrandVisibleAsync() => Brand.IsVisibleAsync();
+
+    /// <summary>
+    /// Установить значение в поле Quantity
+    /// </summary>
+    /// <param name="quantity">Желаемое количество товара</param>
+    public Task SetQuantityAsync(int quantity) => QuantityInput.FillAsync(quantity.ToString());
+
+    /// <summary>
+    /// Нажать кнопку "Add to cart" на странице деталей товара
+    /// </summary>
+    public Task ClickAddToCartAsync() => AddToCartButton.ClickAsync();
 }

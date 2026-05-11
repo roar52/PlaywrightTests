@@ -7,6 +7,7 @@ public class HomePage : BasePage
     protected override string Url => "/";
 
     private ILocator Slider => Page.Locator("#slider-carousel");
+    private ILocator FeaturedProducts => Page.Locator(".features_items .product-image-wrapper");
 
     #region Subscription
     private ILocator Footer => Page.Locator("#footer");
@@ -47,4 +48,15 @@ public class HomePage : BasePage
     /// Получить состояние отображения сообщения "You have been successfully subscribed!"
     /// </summary>
     public Task<bool> IsSubscribeSuccessVisibleAsync() => SubscribeSuccessMessage.IsVisibleAsync();
+
+    /// <summary>
+    /// Навести курсор на товар по индексу и нажать "Add to cart" в overlay
+    /// </summary>
+    /// <param name="index">Индекс товара в блоке Featured items (0-based)</param>
+    public async Task HoverAndAddProductToCartAsync(int index)
+    {
+        var product = FeaturedProducts.Nth(index);
+        await product.HoverAsync();
+        await product.Locator(".product-overlay .add-to-cart").First.ClickAsync();
+    }
 }

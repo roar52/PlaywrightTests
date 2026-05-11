@@ -21,6 +21,10 @@ public abstract class BaseTest
     protected TestCasesPage TestCasesPage { get; private set; } = null!;
     protected ProductsPage ProductsPage { get; private set; } = null!;
     protected ProductDetailsPage ProductDetailsPage { get; private set; } = null!;
+    protected CartPage CartPage { get; private set; } = null!;
+    protected CartModalDialog CartModal { get; private set; } = null!;
+    protected CheckoutPage CheckoutPage { get; private set; } = null!;
+    protected PaymentPage PaymentPage { get; private set; } = null!;
     protected AuthHelper AuthHelper { get; private set; } = null!;
     protected UserData User { get; private set; } = null!;
 
@@ -43,6 +47,10 @@ public abstract class BaseTest
         TestCasesPage = new TestCasesPage(Page);
         ProductsPage = new ProductsPage(Page);
         ProductDetailsPage = new ProductDetailsPage(Page);
+        CartPage = new CartPage(Page);
+        CartModal = new CartModalDialog(Page);
+        CheckoutPage = new CheckoutPage(Page);
+        PaymentPage = new PaymentPage(Page);
         User = new UserBuilder().Build();
         AuthHelper = new AuthHelper(HomePage, LoginPage, SignUpPage, AccountPage, User);
 

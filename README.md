@@ -7,7 +7,7 @@
 Решение состоит из трёх проектов:
 
 - **Core** — инфраструктура (`PlaywrightDriver`, `ConfigurationProvider`, `TestSettings`)
-- **Pages** — Page Object Model (`HomePage`, `LoginPage`, `SignUpPage`, `AccountPage`, `ContactUsPage`, `TestCasesPage`, `ProductsPage`, `ProductDetailsPage`)
+- **Pages** — Page Object Model (`HomePage`, `LoginPage`, `SignUpPage`, `AccountPage`, `ContactUsPage`, `TestCasesPage`, `ProductsPage`, `ProductDetailsPage`, `CartPage`, `CartModalDialog`, `CheckoutPage`, `PaymentPage`)
 - **UITests** — тесты, билдеры, хелперы и модели
 
 ## Конфигурация
@@ -25,7 +25,7 @@
 ## Покрытые тест-кейсы
 
 Тесты основаны на кейсах с [automationexercise.com/test_cases](https://automationexercise.com/test_cases).
-
+![img.png](img.png)
 ### Test Case 1: Регистрация нового пользователя
 **Файл:** `RegisterTests.cs` → `Register_NewUserShouldBeRegistered`
 
@@ -115,6 +115,60 @@
 3. Убедиться в отображении заголовка "SUBSCRIPTION"
 4. Ввести email и нажать кнопку подписки
 5. Проверить сообщение "You have been successfully subscribed!"
+
+### Test Case 11: Подписка на рассылку со страницы корзины
+**Файл:** `SubscriptionInCartTests.cs` → `Subscription_OnCartPage_IsSuccessful`
+
+1. Открыть главную страницу
+2. Перейти на страницу корзины
+3. Прокрутить страницу к футеру
+4. Убедиться в отображении заголовка "SUBSCRIPTION"
+5. Ввести email и нажать кнопку подписки
+6. Проверить сообщение об успешной подписке
+
+### Test Case 12: Добавление товаров в корзину
+**Файл:** `CartTests.cs` → `AddProducts_ToCart_AreVisibleInCart`
+
+1. Открыть главную страницу
+2. Перейти в раздел Products
+3. Навести курсор на первый товар и нажать "Add to cart"
+4. В модальном окне нажать "Continue Shopping"
+5. Навести курсор на второй товар и нажать "Add to cart"
+6. В модальном окне нажать "View Cart"
+7. Убедиться, что в корзине отображаются 2 добавленных товара
+
+### Test Case 13: Проверка количества товара в корзине
+**Файл:** `CartTests.cs` → `ProductQuantity_InCart_MatchesSelectedQuantity`
+
+1. Открыть главную страницу
+2. Перейти в раздел Products → открыть страницу деталей первого товара
+3. Установить количество (Quantity) = 4
+4. Нажать "Add to cart"
+5. В модальном окне нажать "View Cart"
+6. Убедиться, что в корзине количество товара совпадает с заданным
+
+### Test Case 14: Оформление заказа — регистрация во время чекаута
+**Файл:** `PlaceOrderRegisterWhileCheckoutTests.cs` → `PlaceOrder_RegisterWhileCheckout_OrderIsConfirmed`
+
+1. Добавить товар в корзину
+2. Перейти в корзину и нажать "Proceed To Checkout"
+3. В модалке нажать "Register / Login"
+4. Заполнить форму регистрации и создать аккаунт
+5. Убедиться в авторизации и вернуться к оформлению заказа
+6. Заполнить комментарий и нажать "Place Order"
+7. Ввести платёжные реквизиты и подтвердить заказ
+8. Проверить сообщение об успешном оформлении заказа
+
+### Test Case 15: Оформление заказа — регистрация до чекаута
+**Файл:** `PlaceOrderRegisterBeforeCheckoutTests.cs` → `PlaceOrder_RegisterBeforeCheckout_OrderIsConfirmed`
+
+1. Зарегистрировать пользователя (в SetUp) и войти под ним
+2. Добавить товар в корзину
+3. Перейти в корзину и нажать "Proceed To Checkout"
+4. Убедиться в отображении адресов доставки и биллинга
+5. Заполнить комментарий и нажать "Place Order"
+6. Ввести платёжные реквизиты и подтвердить заказ
+7. Проверить сообщение об успешном оформлении заказа
 
 ## Архитектура
 
