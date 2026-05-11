@@ -9,6 +9,16 @@ public class HomePage : BasePage
     private ILocator Slider => Page.Locator("#slider-carousel");
     private ILocator FeaturedProducts => Page.Locator(".features_items .product-image-wrapper");
 
+    #region Recommended Items
+    private ILocator RecommendedSection => Page.Locator("div.recommended_items");
+    private ILocator RecommendedHeading => Page.Locator("div.recommended_items h2.title");
+    private ILocator RecommendedAddToCartFirst => Page.Locator(".recommended_items .item.active .productinfo .add-to-cart").First;
+    #endregion
+
+    #region Scroll Up
+    private ILocator ScrollUpButton => Page.Locator("#scrollUp");
+    #endregion
+
     #region Subscription
     private ILocator Footer => Page.Locator("#footer");
     private ILocator SubscriptionHeading => Page.Locator("div.single-widget h2:has-text('Subscription')");
@@ -58,5 +68,41 @@ public class HomePage : BasePage
         var product = FeaturedProducts.Nth(index);
         await product.HoverAsync();
         await product.Locator(".product-overlay .add-to-cart").First.ClickAsync();
+    }
+
+    /// <summary>
+    /// Прокрутить страницу к секции "RECOMMENDED ITEMS"
+    /// </summary>
+    public Task ScrollToRecommendedItemsAsync() => RecommendedSection.ScrollIntoViewIfNeededAsync();
+
+    /// <summary>
+    /// Получить состояние отображения заголовка секции "RECOMMENDED ITEMS"
+    /// </summary>
+    public Task<bool> IsRecommendedItemsVisibleAsync() => RecommendedHeading.IsVisibleAsync();
+
+    /// <summary>
+    /// Нажать "Add to cart" у первого товара в карусели рекомендованных товаров
+    /// </summary>
+    public Task AddRecommendedProductToCartAsync() => RecommendedAddToCartFirst.ClickAsync();
+
+    /// <summary>
+    /// Прокрутить страницу до самого низа
+    /// </summary>
+    public Task ScrollToBottomAsync() => Page.EvaluateAsync("window.scrollTo(0, document.body.scrollHeight)");
+
+    /// <summary>
+    /// Кликнуть по стрелке "Scroll Up" в правом нижнем углу
+    /// </summary>
+    public Task ClickScrollUpArrowAsync() => ScrollUpButton.ClickAsync();
+
+    /// <summary>
+    /// Проверить, что страница прокручена в самый верх (window.scrollY == 0)
+    /// </summary>
+    public async Task<bool> IsScrolledToTopAsync()
+    {
+        // Ждём, пока скролл вернётся в 0 (анимация scrollUp)
+        await Page.WaitForFunctionAsync("() => window.scrollY === 0");
+        var y = await Page.EvaluateAsync<int>("() => window.scrollY");
+        return y == 0;
     }
 }

@@ -25,6 +25,8 @@ public abstract class BaseTest
     protected CartModalDialog CartModal { get; private set; } = null!;
     protected CheckoutPage CheckoutPage { get; private set; } = null!;
     protected PaymentPage PaymentPage { get; private set; } = null!;
+    protected CategoryProductsPage CategoryProductsPage { get; private set; } = null!;
+    protected BrandProductsPage BrandProductsPage { get; private set; } = null!;
     protected AuthHelper AuthHelper { get; private set; } = null!;
     protected UserData User { get; private set; } = null!;
 
@@ -51,6 +53,8 @@ public abstract class BaseTest
         CartModal = new CartModalDialog(Page);
         CheckoutPage = new CheckoutPage(Page);
         PaymentPage = new PaymentPage(Page);
+        CategoryProductsPage = new CategoryProductsPage(Page);
+        BrandProductsPage = new BrandProductsPage(Page);
         User = new UserBuilder().Build();
         AuthHelper = new AuthHelper(HomePage, LoginPage, SignUpPage, AccountPage, User);
 

@@ -8,6 +8,8 @@ public class CheckoutPage : BasePage
 
     private ILocator AddressDelivery => Page.Locator("#address_delivery");
     private ILocator AddressInvoice => Page.Locator("#address_invoice");
+    private ILocator AddressDeliveryLines => Page.Locator("#address_delivery li");
+    private ILocator AddressInvoiceLines => Page.Locator("#address_invoice li");
     private ILocator ReviewYourOrderHeading => Page.Locator("h2:has-text('Review Your Order')");
     private ILocator CommentTextarea => Page.Locator("textarea[name='message']");
     private ILocator PlaceOrderButton => Page.Locator("a.btn.check_out");
@@ -72,4 +74,28 @@ public class CheckoutPage : BasePage
     /// Кликнуть по ссылке "Register / Login" в модальном окне чекаута
     /// </summary>
     public Task ClickRegisterLoginInModalAsync() => RegisterLoginLink.ClickAsync();
+
+    /// <summary>
+    /// Получить все строки блока адреса доставки в виде списка
+    /// </summary>
+    public async Task<IReadOnlyList<string>> GetDeliveryAddressLinesAsync()
+    {
+        var count = await AddressDeliveryLines.CountAsync();
+        var result = new List<string>(count);
+        for (var i = 0; i < count; i++)
+            result.Add((await AddressDeliveryLines.Nth(i).InnerTextAsync()).Trim());
+        return result;
+    }
+
+    /// <summary>
+    /// Получить все строки блока адреса биллинга в виде списка
+    /// </summary>
+    public async Task<IReadOnlyList<string>> GetBillingAddressLinesAsync()
+    {
+        var count = await AddressInvoiceLines.CountAsync();
+        var result = new List<string>(count);
+        for (var i = 0; i < count; i++)
+            result.Add((await AddressInvoiceLines.Nth(i).InnerTextAsync()).Trim());
+        return result;
+    }
 }
