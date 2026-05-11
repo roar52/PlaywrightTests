@@ -49,4 +49,15 @@ public class ProductsPage : BasePage
     /// Получить количество товаров, отображаемых в результатах поиска
     /// </summary>
     public Task<int> GetSearchResultsCountAsync() => ProductsList.CountAsync();
+
+    /// <summary>
+    /// Навести курсор на товар по индексу и нажать "Add to cart" в overlay
+    /// </summary>
+    /// <param name="index">Индекс товара (0-based)</param>
+    public async Task HoverAndAddProductToCartAsync(int index)
+    {
+        var product = ProductsList.Nth(index);
+        await product.HoverAsync();
+        await product.Locator(".product-overlay .add-to-cart").First.ClickAsync();
+    }
 }
