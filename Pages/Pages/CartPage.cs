@@ -10,6 +10,7 @@ public class CartPage : BasePage
     private ILocator CartItemsBlock => Page.Locator("#cart_items");
     private ILocator ProductRows => Page.Locator("tr[id^='product-']");
     private ILocator ProceedToCheckoutButton => Page.Locator("a.btn.check_out");
+    private ILocator EmptyCartMessage => Page.Locator("#empty_cart");
 
     #region Subscription
     private ILocator Footer => Page.Locator("#footer");
@@ -70,6 +71,38 @@ public class CartPage : BasePage
     /// Нажать кнопку "Proceed To Checkout"
     /// </summary>
     public Task ClickProceedToCheckoutAsync() => ProceedToCheckoutButton.ClickAsync();
+
+    /// <summary>
+    /// Получить название товара в корзине по индексу строки
+    /// </summary>
+    /// <param name="rowIndex">Индекс строки товара (0-based)</param>
+    public async Task<string> GetProductNameAsync(int rowIndex)
+    {
+        var row = ProductRows.Nth(rowIndex);
+        return await row.Locator(".cart_description h4 a").InnerTextAsync();
+    }
+
+    /// <summary>
+    /// Удалить товар из корзины по индексу строки.
+    /// Метод ожидает исчезновения строки из DOM.
+    /// </summary>
+    /// <param name="rowIndex">Индекс удаляемой строки (0-based)</param>
+    public async Task RemoveProductAsync(int rowIndex)
+    {
+        var row = ProductRows.Nth(rowIndex);
+        await row.Locator("a.cart_quantity_delete").ClickAsync();
+        await row.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
+    }
+
+    /// <summary>
+    /// Получить состояние отображения сообщения "Cart is empty!"
+    /// (с ожиданием появления элемента)
+    /// </summary>
+    public async Task<bool> IsCartEmptyAsync()
+    {
+        await EmptyCartMessage.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        return await EmptyCartMessage.IsVisibleAsync();
+    }
 
     /// <summary>
     /// Прокрутить страницу к футеру

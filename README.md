@@ -7,7 +7,7 @@
 Решение состоит из трёх проектов:
 
 - **Core** — инфраструктура (`PlaywrightDriver`, `ConfigurationProvider`, `TestSettings`)
-- **Pages** — Page Object Model (`HomePage`, `LoginPage`, `SignUpPage`, `AccountPage`, `ContactUsPage`, `TestCasesPage`, `ProductsPage`, `ProductDetailsPage`, `CartPage`, `CartModalDialog`, `CheckoutPage`, `PaymentPage`)
+- **Pages** — Page Object Model (`HomePage`, `LoginPage`, `SignUpPage`, `AccountPage`, `ContactUsPage`, `TestCasesPage`, `ProductsPage`, `ProductDetailsPage`, `CartPage`, `CartModalDialog`, `CheckoutPage`, `PaymentPage`, `CategoryProductsPage`, `BrandProductsPage`)
 - **UITests** — тесты, билдеры, хелперы и модели
 
 ## Конфигурация
@@ -169,6 +169,94 @@
 5. Заполнить комментарий и нажать "Place Order"
 6. Ввести платёжные реквизиты и подтвердить заказ
 7. Проверить сообщение об успешном оформлении заказа
+
+### Test Case 16: Оформление заказа — логин до чекаута
+**Файл:** `PlaceOrderLoginBeforeCheckoutTests.cs` → `PlaceOrder_LoginBeforeCheckout_OrderIsConfirmed`
+
+1. Зарегистрировать пользователя (в SetUp)
+2. Открыть главную страницу
+3. Перейти в Signup / Login и войти под пользователем
+4. Добавить товар в корзину и перейти в корзину
+5. Нажать "Proceed To Checkout", заполнить комментарий, нажать "Place Order"
+6. Ввести платёжные реквизиты и подтвердить заказ
+7. Проверить сообщение об успешном оформлении заказа
+
+### Test Case 17: Удаление товара из корзины
+**Файл:** `RemoveProductsFromCartTests.cs` → `RemoveProduct_FromCart_CartBecomesEmpty`
+
+1. Открыть главную страницу и перейти в Products
+2. Добавить товар в корзину и открыть её
+3. Удалить товар через кнопку "X"
+4. Убедиться, что отображается сообщение "Cart is empty!"
+
+### Test Case 18: Просмотр товаров по категориям
+**Файл:** `CategoryProductsTests.cs` → `CategoryProducts_AreDisplayedCorrectly`
+
+1. Открыть главную страницу и перейти в Products
+2. Убедиться, что отображается sidebar категорий
+3. Раскрыть "Women" и кликнуть "Dress"
+4. Проверить заголовок страницы категории
+5. Раскрыть "Men" и кликнуть "Tshirts"
+6. Проверить заголовок страницы категории
+
+### Test Case 19: Просмотр и переход по брендам
+**Файл:** `BrandProductsTests.cs` → `BrandProducts_AreDisplayedCorrectly`
+
+1. Открыть главную страницу и перейти в Products
+2. Убедиться, что отображается sidebar брендов
+3. Кликнуть по бренду "Polo" и проверить заголовок
+4. Кликнуть по бренду "H&M" и проверить заголовок
+
+### Test Case 20: Поиск товаров и сохранение корзины после логина
+**Файл:** `SearchAndCartAfterLoginTests.cs` → `SearchProducts_AndCartIsKept_AfterLogin`
+
+1. Зарегистрировать пользователя (в SetUp)
+2. Открыть Products и найти товары по запросу
+3. Добавить найденный товар в корзину
+4. Открыть корзину и запомнить количество товаров
+5. Войти в аккаунт
+6. Снова открыть корзину и убедиться, что товары сохранились
+
+### Test Case 21: Добавление отзыва на товар
+**Файл:** `ProductReviewTests.cs` → `AddReview_OnProduct_IsSubmittedSuccessfully`
+
+1. Открыть Products → перейти в детали первого товара
+2. Убедиться в отображении секции "Write Your Review"
+3. Заполнить имя, email, текст отзыва и отправить
+4. Проверить сообщение "Thank you for your review."
+
+### Test Case 22: Добавление в корзину из блока "Recommended Items"
+**Файл:** `RecommendedItemsTests.cs` → `RecommendedItem_AddToCart_IsInCart`
+
+1. Открыть главную страницу
+2. Прокрутить к блоку "RECOMMENDED ITEMS"
+3. Нажать "Add to cart" у первого рекомендованного товара
+4. В модальном окне нажать "View Cart"
+5. Убедиться, что товар присутствует в корзине
+
+### Test Case 23: Проверка адресных данных на странице чекаута
+**Файл:** `AddressDetailsInCheckoutTests.cs` → `AddressDetails_OnCheckout_MatchRegistrationData`
+
+1. Зарегистрировать пользователя (в SetUp) и войти под ним
+2. Добавить товар в корзину и перейти в чекаут
+3. Получить тексты блоков адреса доставки и биллинга
+4. Сверить с регистрационными данными (ФИО, компания, адрес, город, страна, телефон)
+
+### Test Case 24: Скачивание инвойса после оформления заказа
+**Файл:** `DownloadInvoiceTests.cs` → `DownloadInvoice_AfterOrder_FileIsDownloaded`
+
+1. Добавить товар в корзину и инициировать оформление заказа
+2. Пройти регистрацию через модалку "Register / Login"
+3. Завершить заказ и подтвердить оплату
+4. Скачать инвойс и убедиться, что файл сохранён и непустой
+
+### Test Case 25: Прокрутка страницы вверх через стрелку
+**Файл:** `ScrollUpTests.cs` → `ScrollUp_ArrowButton_ReturnsPageToTop`
+
+1. Открыть главную страницу
+2. Прокрутить страницу вниз и убедиться в отображении блока "SUBSCRIPTION"
+3. Кликнуть по стрелке "Scroll Up" в правом нижнем углу
+4. Убедиться, что страница вернулась в самый верх
 
 ## Архитектура
 

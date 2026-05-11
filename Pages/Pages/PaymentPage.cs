@@ -13,6 +13,7 @@ public class PaymentPage : BasePage
     private ILocator ExpiryYearInput => Page.Locator("input[name='expiry_year']");
     private ILocator PayAndConfirmButton => Page.Locator("button[data-qa='pay-button']");
     private ILocator OrderConfirmedMessage => Page.Locator("h2[data-qa='order-placed'], div.col-sm-9.col-sm-offset-1 h2:has-text('Order Placed')");
+    private ILocator DownloadInvoiceButton => Page.Locator("a.check_out:has-text('Download Invoice')");
 
     public PaymentPage(IPage page) : base(page) { }
 
@@ -45,5 +46,19 @@ public class PaymentPage : BasePage
     {
         await OrderConfirmedMessage.First.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
         return await OrderConfirmedMessage.First.IsVisibleAsync();
+    }
+
+    /// <summary>
+    /// Скачать инвойс заказа. Возвращает абсолютный путь к загруженному файлу.
+    /// </summary>
+    public async Task<string> DownloadInvoiceAsync()
+    {
+        var download = await Page.RunAndWaitForDownloadAsync(async () =>
+        {
+            await DownloadInvoiceButton.ClickAsync();
+        });
+        var targetPath = Path.Combine(Path.GetTempPath(), download.SuggestedFilename);
+        await download.SaveAsAsync(targetPath);
+        return targetPath;
     }
 }

@@ -14,6 +14,15 @@ public class ProductDetailsPage : BasePage
     private ILocator QuantityInput => Page.Locator("#quantity");
     private ILocator AddToCartButton => Page.Locator("button.cart");
 
+    #region Write Your Review
+    private ILocator WriteReviewTab => Page.Locator("a[href='#reviews']");
+    private ILocator ReviewName => Page.Locator("#name");
+    private ILocator ReviewEmail => Page.Locator("#email");
+    private ILocator ReviewText => Page.Locator("#review");
+    private ILocator SubmitReviewButton => Page.Locator("#button-review");
+    private ILocator ReviewSuccessMessage => Page.Locator("div.alert-success span:has-text('Thank you for your review.')");
+    #endregion
+
     public ProductDetailsPage(IPage page) : base(page) { }
 
     /// <summary>
@@ -56,4 +65,37 @@ public class ProductDetailsPage : BasePage
     /// Нажать кнопку "Add to cart" на странице деталей товара
     /// </summary>
     public Task ClickAddToCartAsync() => AddToCartButton.ClickAsync();
+
+    /// <summary>
+    /// Получить состояние отображения секции "Write Your Review"
+    /// </summary>
+    public Task<bool> IsWriteReviewSectionVisibleAsync() => WriteReviewTab.IsVisibleAsync();
+
+    /// <summary>
+    /// Заполнить форму отзыва: имя, email и текст отзыва
+    /// </summary>
+    /// <param name="name">Имя автора отзыва</param>
+    /// <param name="email">Email автора отзыва</param>
+    /// <param name="review">Текст отзыва</param>
+    public async Task FillReviewAsync(string name, string email, string review)
+    {
+        await ReviewName.FillAsync(name);
+        await ReviewEmail.FillAsync(email);
+        await ReviewText.FillAsync(review);
+    }
+
+    /// <summary>
+    /// Нажать кнопку "Submit" на форме отзыва
+    /// </summary>
+    public Task ClickSubmitReviewAsync() => SubmitReviewButton.ClickAsync();
+
+    /// <summary>
+    /// Получить состояние отображения сообщения "Thank you for your review."
+    /// (с ожиданием появления элемента)
+    /// </summary>
+    public async Task<bool> IsReviewSuccessMessageVisibleAsync()
+    {
+        await ReviewSuccessMessage.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        return await ReviewSuccessMessage.IsVisibleAsync();
+    }
 }
