@@ -8,7 +8,7 @@ public class PlaywrightDriver : IAsyncDisposable
     private readonly IPlaywright _playwright;
 
     /// <summary>
-    /// Инициализировать драйвер с готовыми экземплярами Playwright и браузера
+    /// Инициализация драйвера с готовыми экземплярами Playwright и браузера
     /// </summary>
     /// <param name="playwright">Экземпляр Playwright</param>
     /// <param name="browser">Запущенный браузер</param>

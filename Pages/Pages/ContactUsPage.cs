@@ -18,7 +18,7 @@ public class ContactUsPage : BasePage
     public ContactUsPage(IPage page) : base(page)
     {
         // Подписываемся на диалог сразу при создании page-объекта,
-        // чтобы любой alert/confirm на странице автоматически принимался.
+        // чтобы любой alert/confirm на странице автоматически принимался
         Page.Dialog += (_, dialog) => dialog.AcceptAsync();
     }
 
@@ -49,9 +49,7 @@ public class ContactUsPage : BasePage
     public Task UploadFileAsync(string filePath) => FileUploadInput.SetInputFilesAsync(filePath);
 
     /// <summary>
-    /// Нажать кнопку "Submit". Браузерный alert принимается автоматически
-    /// через подписчик Page.Dialog, зарегистрированный в конструкторе.
-    /// После клика дожидаемся появления success-сообщения.
+    /// Нажать кнопку "Submit"
     /// </summary>
     public async Task ClickSubmitAsync()
     {

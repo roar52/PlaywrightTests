@@ -45,7 +45,7 @@ public class HomePage : BasePage
     public Task<bool> IsSubscriptionHeadingVisibleAsync() => SubscriptionHeading.IsVisibleAsync();
 
     /// <summary>
-    /// Подписаться на рассылку: ввести email и нажать кнопку подписки
+    /// Ввести email и нажать кнопку подписки
     /// </summary>
     /// <param name="email">Адрес электронной почты для подписки</param>
     public async Task SubscribeAsync(string email)
@@ -62,7 +62,7 @@ public class HomePage : BasePage
     /// <summary>
     /// Навести курсор на товар по индексу и нажать "Add to cart" в overlay
     /// </summary>
-    /// <param name="index">Индекс товара в блоке Featured items (0-based)</param>
+    /// <param name="index">Индекс товара в блоке Featured items</param>
     public async Task HoverAndAddProductToCartAsync(int index)
     {
         var product = FeaturedProducts.Nth(index);
@@ -96,7 +96,7 @@ public class HomePage : BasePage
     public Task ClickScrollUpArrowAsync() => ScrollUpButton.ClickAsync();
 
     /// <summary>
-    /// Проверить, что страница прокручена в самый верх (window.scrollY == 0)
+    /// Проверить, что страница прокручена в самый верх
     /// </summary>
     public async Task<bool> IsScrolledToTopAsync()
     {

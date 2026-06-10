@@ -47,7 +47,7 @@ public class SignUpPage : BasePage
     /// <summary>
     /// Выбрать обращение: "Mr" или "Mrs"
     /// </summary>
-    /// <param name="title">Обращение: "Mr" или "Mrs"</param>
+    /// <param name="title">Обращение</param>
     public async Task SelectTitleAsync(string title)
     {
         if (title == "Mr") await TitleMr.CheckAsync();
@@ -61,7 +61,7 @@ public class SignUpPage : BasePage
     public Task FillPasswordAsync(string password) => PasswordInput.FillAsync(password);
 
     /// <summary>
-    /// Выбрать дату рождения: день, месяц, год
+    /// Выбрать дату рождения
     /// </summary>
     /// <param name="day">День (числовое значение, например "15")</param>
     /// <param name="month">Месяц (числовое значение, например "5")</param>
@@ -84,7 +84,7 @@ public class SignUpPage : BasePage
     public Task CheckSpecialOffersAsync() => SpecialOffersCheckbox.CheckAsync();
 
     /// <summary>
-    /// Заполнить адресные данные: имя, фамилия, компания, адрес, страна, город и т.д.
+    /// Заполнить адресные данные
     /// </summary>
     /// <param name="firstName">Имя</param>
     /// <param name="lastName">Фамилия</param>

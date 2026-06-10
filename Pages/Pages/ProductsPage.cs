@@ -43,7 +43,7 @@ public class ProductsPage : BasePage
     /// <summary>
     /// Ввести поисковый запрос и нажать кнопку поиска
     /// </summary>
-    /// <param name="name">Название товара или поисковая фраза</param>
+    /// <param name="name">Название товара</param>
     public async Task SearchProductAsync(string name)
     {
         await SearchInput.FillAsync(name);
@@ -72,7 +72,7 @@ public class ProductsPage : BasePage
     }
 
     /// <summary>
-    /// Получить состояние отображения sidebar с категориями (Women/Men/Kids)
+    /// Получить состояние отображения sidebar с категориями
     /// </summary>
     public Task<bool> IsCategoriesSidebarVisibleAsync() => CategoriesSidebar.IsVisibleAsync();
 
@@ -109,6 +109,6 @@ public class ProductsPage : BasePage
     /// <summary>
     /// Кликнуть по бренду в sidebar по его имени
     /// </summary>
-    /// <param name="brandName">Точное название бренда (например, "Polo", "H&M")</param>
+    /// <param name="brandName">Точное название бренда</param>
     public Task ClickBrandAsync(string brandName) => Page.Locator($"a[href='/brand_products/{brandName}']").ClickAsync();
 }

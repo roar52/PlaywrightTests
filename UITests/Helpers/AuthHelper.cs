@@ -10,15 +10,7 @@ public class AuthHelper
     private readonly SignUpPage _signUpPage;
     private readonly AccountPage _accountPage;
     private readonly UserData _user;
-
-    /// <summary>
-    /// Инициализировать AuthHelper готовыми page-объектами и данными пользователя
-    /// </summary>
-    /// <param name="homePage">Объект главной страницы</param>
-    /// <param name="loginPage">Объект страницы логина</param>
-    /// <param name="signUpPage">Объект страницы регистрации</param>
-    /// <param name="accountPage">Объект страницы аккаунта</param>
-    /// <param name="user">Данные пользователя</param>
+    
     public AuthHelper(HomePage homePage, LoginPage loginPage, SignUpPage signUpPage, AccountPage accountPage, UserData user)
     {
         _homePage = homePage;
@@ -64,8 +56,7 @@ public class AuthHelper
     }
 
     /// <summary>
-    /// Удалить аккаунт текущего пользователя.
-    /// Если пользователь не авторизован — выполняется вход перед удалением.
+    /// Удалить аккаунт текущего пользователя
     /// </summary>
     public async Task DeleteAccountAsync()
     {

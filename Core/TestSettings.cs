@@ -1,7 +1,7 @@
 namespace Core;
 
 /// <summary>
-/// Модель настроек тестов, считываемых из секции TestSettings в appsettings.json
+/// Модель настроек тестов
 /// </summary>
 public class TestSettings
 {

@@ -21,9 +21,7 @@ public class LoginDataBuilder
 
     /// <summary>
     /// Собрать объект LoginData с заданными параметрами.
-    /// Требует обязательного указания email и пароля через WithEmail и WithPassword.
     /// </summary>
-    /// <exception cref="InvalidOperationException">Если email или пароль не заданы</exception>
     public LoginData Build()
     {
         if (string.IsNullOrEmpty(_email))

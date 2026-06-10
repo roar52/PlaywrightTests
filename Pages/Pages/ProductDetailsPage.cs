@@ -91,7 +91,6 @@ public class ProductDetailsPage : BasePage
 
     /// <summary>
     /// Получить состояние отображения сообщения "Thank you for your review."
-    /// (с ожиданием появления элемента)
     /// </summary>
     public async Task<bool> IsReviewSuccessMessageVisibleAsync()
     {

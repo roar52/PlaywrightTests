@@ -23,7 +23,7 @@ public class CartPage : BasePage
     public CartPage(IPage page) : base(page) { }
 
     /// <summary>
-    /// Проверить, что страница корзины открыта (отображается контейнер #cart_items)
+    /// Проверить, что страница открыта
     /// </summary>
     public Task<bool> IsCartPageVisibleAsync() => CartItemsBlock.IsVisibleAsync();
 
@@ -33,14 +33,14 @@ public class CartPage : BasePage
     public Task<bool> IsCartTableVisibleAsync() => CartTable.IsVisibleAsync();
 
     /// <summary>
-    /// Получить количество товаров (строк) в корзине
+    /// Получить количество линий в корзине
     /// </summary>
     public Task<int> GetProductsCountAsync() => ProductRows.CountAsync();
 
     /// <summary>
-    /// Получить значение количества (quantity) у товара по индексу строки
+    /// Получить количество товара по индексу линии
     /// </summary>
-    /// <param name="rowIndex">Индекс строки товара (0-based)</param>
+    /// <param name="rowIndex">Индекс линии товара</param>
     public async Task<string> GetProductQuantityAsync(int rowIndex)
     {
         var row = ProductRows.Nth(rowIndex);
@@ -48,9 +48,9 @@ public class CartPage : BasePage
     }
 
     /// <summary>
-    /// Получить общую цену (total) у товара по индексу строки
+    /// Получить общую цену у товара по индексу линии
     /// </summary>
-    /// <param name="rowIndex">Индекс строки товара (0-based)</param>
+    /// <param name="rowIndex">Индекс линии товара</param>
     public async Task<string> GetProductTotalPriceAsync(int rowIndex)
     {
         var row = ProductRows.Nth(rowIndex);
@@ -58,9 +58,9 @@ public class CartPage : BasePage
     }
 
     /// <summary>
-    /// Получить цену за единицу товара по индексу строки
+    /// Получить цену за единицу товара по индексу линии
     /// </summary>
-    /// <param name="rowIndex">Индекс строки товара (0-based)</param>
+    /// <param name="rowIndex">Индекс линии товара (0-based)</param>
     public async Task<string> GetProductUnitPriceAsync(int rowIndex)
     {
         var row = ProductRows.Nth(rowIndex);
@@ -73,9 +73,9 @@ public class CartPage : BasePage
     public Task ClickProceedToCheckoutAsync() => ProceedToCheckoutButton.ClickAsync();
 
     /// <summary>
-    /// Получить название товара в корзине по индексу строки
+    /// Получить название товара в корзине по индексу линии
     /// </summary>
-    /// <param name="rowIndex">Индекс строки товара (0-based)</param>
+    /// <param name="rowIndex">Индекс линии товара (0-based)</param>
     public async Task<string> GetProductNameAsync(int rowIndex)
     {
         var row = ProductRows.Nth(rowIndex);
@@ -83,10 +83,9 @@ public class CartPage : BasePage
     }
 
     /// <summary>
-    /// Удалить товар из корзины по индексу строки.
-    /// Метод ожидает исчезновения строки из DOM.
+    /// Удалить товар из корзины по индексу линии.
     /// </summary>
-    /// <param name="rowIndex">Индекс удаляемой строки (0-based)</param>
+    /// <param name="rowIndex">Индекс удаляемой линии</param>
     public async Task RemoveProductAsync(int rowIndex)
     {
         var row = ProductRows.Nth(rowIndex);
@@ -96,7 +95,6 @@ public class CartPage : BasePage
 
     /// <summary>
     /// Получить состояние отображения сообщения "Cart is empty!"
-    /// (с ожиданием появления элемента)
     /// </summary>
     public async Task<bool> IsCartEmptyAsync()
     {

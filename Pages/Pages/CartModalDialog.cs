@@ -11,8 +11,7 @@ public class CartModalDialog : BasePage
     public CartModalDialog(IPage page) : base(page) { }
 
     /// <summary>
-    /// Получить состояние отображения модального окна корзины (после Add to cart).
-    /// Метод активно дожидается появления модалки до DefaultTimeout.
+    /// Получить состояние отображения модального окна корзины
     /// </summary>
     public async Task<bool> IsModalVisibleAsync()
     {

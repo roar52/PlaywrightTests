@@ -22,7 +22,7 @@ public class CheckoutPage : BasePage
     public CheckoutPage(IPage page) : base(page) { }
 
     /// <summary>
-    /// Получить состояние отображения блока адреса доставки (с ожиданием появления)
+    /// Получить состояние отображения блока адреса доставки
     /// </summary>
     public async Task<bool> IsAddressDeliveryVisibleAsync()
     {
@@ -31,7 +31,7 @@ public class CheckoutPage : BasePage
     }
 
     /// <summary>
-    /// Получить состояние отображения блока адреса биллинга (с ожиданием появления)
+    /// Получить состояние отображения блока адреса биллинга
     /// </summary>
     public async Task<bool> IsAddressInvoiceVisibleAsync()
     {
@@ -40,7 +40,7 @@ public class CheckoutPage : BasePage
     }
 
     /// <summary>
-    /// Получить состояние отображения заголовка "Review Your Order" (с ожиданием появления)
+    /// Получить состояние отображения заголовка "Review Your Order"
     /// </summary>
     public async Task<bool> IsReviewYourOrderVisibleAsync()
     {
@@ -61,8 +61,6 @@ public class CheckoutPage : BasePage
 
     /// <summary>
     /// Получить состояние отображения модального окна "Register / Login"
-    /// (отображается, когда пользователь не авторизован при попытке оформить заказ).
-    /// Метод активно дожидается появления модалки до DefaultTimeout.
     /// </summary>
     public async Task<bool> IsRegisterLoginModalVisibleAsync()
     {
@@ -71,7 +69,7 @@ public class CheckoutPage : BasePage
     }
 
     /// <summary>
-    /// Кликнуть по ссылке "Register / Login" в модальном окне чекаута
+    /// Кликнуть по ссылке "Register / Login" в модальном окне
     /// </summary>
     public Task ClickRegisterLoginInModalAsync() => RegisterLoginLink.ClickAsync();
 

@@ -9,10 +9,9 @@ public class CategoryProductsPage : BasePage
     public CategoryProductsPage(IPage page) : base(page) { }
 
     /// <summary>
-    /// Получить состояние отображения заголовка категории с указанным текстом
-    /// (например, "WOMEN - DRESS PRODUCTS"). Метод дожидается появления заголовка.
+    /// Получить состояние отображения заголовка с указанным текстом
     /// </summary>
-    /// <param name="expectedText">Ожидаемый текст в заголовке страницы категории</param>
+    /// <param name="expectedText">Ожидаемый текст в заголовке страницы</param>
     public async Task<bool> IsCategoryHeadingVisibleAsync(string expectedText)
     {
         var locator = Page.Locator($".features_items .title:has-text('{expectedText}')");
@@ -21,7 +20,7 @@ public class CategoryProductsPage : BasePage
     }
 
     /// <summary>
-    /// Получить текст заголовка страницы категории/бренда
+    /// Получить текст заголовка страницы
     /// </summary>
     public Task<string> GetHeadingTextAsync() => PageHeading.InnerTextAsync();
 }

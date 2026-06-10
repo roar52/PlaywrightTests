@@ -15,10 +15,7 @@ public class BasePage
     private ILocator ContactUsLink => Page.Locator("a[href='/contact_us']");
     private ILocator TestCasesLink => Page.Locator("a[href='/test_cases']").First;
     private ILocator LoggedInLabel => Page.Locator("li:has-text('Logged in as')");
-    /// <summary>
-    /// Инициализировать базовую страницу
-    /// </summary>
-    /// <param name="page">Экземпляр Playwright страницы</param>
+    
     protected BasePage(IPage page)
     {
         Page = page;
@@ -49,51 +46,49 @@ public class BasePage
     }
     
     /// <summary>
-    /// Кликает по ссылке «Home» в шапке сайта
+    /// Нажать по ссылке «Home» в шапке сайта
     /// </summary>
     public Task ClickHomeAsync() => HomeLink.ClickAsync();
 
     /// <summary>
-    /// Кликает по ссылке «Products» в шапке сайта
+    /// Нажать по ссылке «Products» в шапке сайта
     /// </summary>
     public Task ClickProductsAsync() => ProductsLink.ClickAsync();
 
     /// <summary>
-    /// Кликает по ссылке «Cart» в шапке сайта
+    /// Нажать по ссылке «Cart» в шапке сайта
     /// </summary>
     public Task ClickCartAsync() => CartLink.ClickAsync();
 
-    /// <summary>Кликает по ссылке «Signup / Login» в шапке сайта.</summary>
+    /// <summary>
+    /// Нажать по ссылке «Signup / Login» в шапке сайта
+    /// </summary>
     public Task ClickSignupLoginAsync() => SignupLoginLink.ClickAsync();
 
-    /// <summary>Кликает по ссылке «Logout» в шапке сайта (видна только залогиненному пользователю).</summary>
+    /// <summary>
+    /// Нажать по ссылке «Logout» в шапке сайта
+    /// </summary>
     public Task ClickLogoutAsync() => LogoutLink.ClickAsync();
 
     /// <summary>
-    /// Кликает по ссылке «Delete Account» в шапке сайта.
+    /// Нажать по ссылке «Delete Account» в шапке сайта.
     /// Удаляет текущий аккаунт и переводит пользователя на страницу-подтверждение.
     /// </summary>
     public Task ClickDeleteAccountAsync() => DeleteAccountLink.ClickAsync();
 
-    /// <summary>Кликает по ссылке «Contact us» в шапке сайта.</summary>
+    /// <summary>
+    /// Нажать по ссылке «Contact us» в шапке сайта
+    /// </summary>
     public Task ClickContactUsAsync() => ContactUsLink.ClickAsync();
 
-    /// <summary>Кликает по ссылке «Test Cases» в шапке сайта.</summary>
+    /// <summary>
+    /// Нажать по ссылке «Test Cases» в шапке сайта
+    /// </summary>
     public Task ClickTestCasesAsync() => TestCasesLink.ClickAsync();
 
     /// <summary>
-    /// Проверяет, что в шапке отображается надпись «Logged in as ...» — индикатор активной сессии.
+    /// Проверить состояние отображание надписи «Logged in as ...»
     /// </summary>
     public async Task<bool> IsLoggedInAsync()
         => await LoggedInLabel.IsVisibleAsync();
-
-    /// <summary>
-    /// Возвращает имя залогиненного пользователя, вытаскивая его из надписи «Logged in as &lt;name&gt;».
-    /// Префикс и пробелы по краям отрезаются.
-    /// </summary>
-    public async Task<string> LoggedInUsernameAsync()
-    {
-        var text = await LoggedInLabel.InnerTextAsync();
-        return text.Replace("Logged in as", string.Empty).Trim();
-    }
 }

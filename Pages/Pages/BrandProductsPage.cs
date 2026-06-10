@@ -9,10 +9,9 @@ public class BrandProductsPage : BasePage
     public BrandProductsPage(IPage page) : base(page) { }
 
     /// <summary>
-    /// Получить состояние отображения заголовка страницы бренда с указанным текстом
-    /// (например, "BRAND - POLO PRODUCTS"). Метод дожидается появления заголовка.
+    /// Получить состояние отображения заголовка страницы с ожидаемым текстом
     /// </summary>
-    /// <param name="expectedText">Ожидаемый текст в заголовке страницы бренда</param>
+    /// <param name="expectedText">Ожидаемый текст в заголовке</param>
     public async Task<bool> IsBrandHeadingVisibleAsync(string expectedText)
     {
         var locator = Page.Locator($".features_items .title:has-text('{expectedText}')");
@@ -21,7 +20,7 @@ public class BrandProductsPage : BasePage
     }
 
     /// <summary>
-    /// Получить текст заголовка страницы бренда
+    /// Получить текст заголовка страницы
     /// </summary>
     public Task<string> GetHeadingTextAsync() => PageHeading.InnerTextAsync();
 }
